@@ -1,98 +1,209 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScrollView, Text, View } from 'react-native';
 
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
+import { styles } from '@/styles/hydroGrowStyles';
 
-function getDevMenuHint() {
-  if (Platform.OS === 'web') {
-    return <ThemedText type="small">use browser devtools</ThemedText>;
+// TYPE
+type Plant = {
+  id: number;
+  name: string;
+  quantity: number;
+  condition: string;
+  emoji: string;
+};
+
+// ARRAY OF OBJECTS
+const plants: Plant[] = [
+  {
+    id: 1,
+    name: 'Selada',
+    quantity: 25,
+    condition: 'Sehat',
+    emoji: '🥬',
+  },
+  {
+    id: 2,
+    name: 'Pakcoy',
+    quantity: 18,
+    condition: 'Perlu Air',
+    emoji: '🌱',
+  },
+  {
+    id: 3,
+    name: 'Kangkung',
+    quantity: 30,
+    condition: 'Sehat',
+    emoji: '🌿',
+  },
+];
+
+// CUSTOM FUNCTION
+const getConditionColor = (condition: string) => {
+  if (condition === 'Sehat') {
+    return '#16a34a';
   }
-  if (Device.isDevice) {
-    return (
-      <ThemedText type="small">
-        shake device or press <ThemedText type="code">m</ThemedText> in terminal
-      </ThemedText>
-    );
-  }
-  const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
+
+  return '#f59e0b';
+};
+
+// CUSTOM FUNCTION UNTUK CARD TANAMAN
+const PlantCard = (plant: Plant) => {
   return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
+    <View style={styles.plantCard}>
+      <Text style={styles.plantEmoji}>
+        {plant.emoji}
+      </Text>
+
+      <View style={styles.plantInfo}>
+        <Text style={styles.plantName}>
+          {plant.name}
+        </Text>
+
+        <Text style={styles.plantQuantity}>
+          {plant.quantity} tanaman
+        </Text>
+
+        <Text
+          style={[
+            styles.condition,
+            {
+              color: getConditionColor(plant.condition),
+            },
+          ]}
+        >
+          ● {plant.condition}
+        </Text>
+      </View>
+    </View>
   );
-}
+};
 
 export default function HomeScreen() {
   return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
+    <ScrollView style={styles.container}>
+      <View style={styles.content}>
 
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
+        {/* HEADER */}
+        <View style={styles.header}>
+          <Text style={styles.logo}>
+            🌱
+          </Text>
 
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-          />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
+          <View>
+            <Text style={styles.title}>
+              HydroGrow
+            </Text>
 
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
-    </ThemedView>
+            <Text style={styles.subtitle}>
+              Greenhouse Hidroponik
+            </Text>
+          </View>
+        </View>
+
+        {/* WELCOME */}
+        <View style={styles.welcomeCard}>
+          <Text style={styles.welcomeTitle}>
+            Selamat Datang 👋
+          </Text>
+
+          <Text style={styles.welcomeText}>
+            Pantau kondisi tanaman hidroponik kamu dengan mudah.
+          </Text>
+        </View>
+
+        {/* DASHBOARD */}
+        <Text style={styles.sectionTitle}>
+          Dashboard
+        </Text>
+
+        <View style={styles.dashboard}>
+
+          {/* TOTAL TANAMAN */}
+          <View style={styles.statCard}>
+            <Text style={styles.statEmoji}>
+              🌱
+            </Text>
+
+            <Text style={styles.statValue}>
+              73
+            </Text>
+
+            <Text style={styles.statLabel}>
+              Total Tanaman
+            </Text>
+          </View>
+
+          {/* SUHU */}
+          <View style={styles.statCard}>
+            <Text style={styles.statEmoji}>
+              🌡️
+            </Text>
+
+            <Text style={styles.statValue}>
+              27°C
+            </Text>
+
+            <Text style={styles.statLabel}>
+              Suhu
+            </Text>
+          </View>
+
+          {/* KELEMBAPAN */}
+          <View style={styles.statCard}>
+            <Text style={styles.statEmoji}>
+              💧
+            </Text>
+
+            <Text style={styles.statValue}>
+              82%
+            </Text>
+
+            <Text style={styles.statLabel}>
+              Kelembapan
+            </Text>
+          </View>
+
+          {/* PERHATIAN */}
+          <View style={styles.statCard}>
+            <Text style={styles.statEmoji}>
+              ⚠️
+            </Text>
+
+            <Text style={styles.statValue}>
+              1
+            </Text>
+
+            <Text style={styles.statLabel}>
+              Perhatian
+            </Text>
+          </View>
+
+        </View>
+
+        {/* DAFTAR TANAMAN */}
+        <Text style={styles.sectionTitle}>
+          Tanaman Hidroponik
+        </Text>
+
+        {/* LOOP / MAP */}
+        {plants.map((plant) => (
+          <View key={plant.id}>
+            {PlantCard(plant)}
+          </View>
+        ))}
+
+        {/* FOOTER */}
+        <Text
+          style={[
+            styles.footer,
+            {
+              fontSize: 13,
+            },
+          ]}
+        >
+          HydroGrow © 2026
+        </Text>
+
+      </View>
+    </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'row',
-  },
-  safeArea: {
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
-  },
-  heroSection: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.four,
-  },
-  title: {
-    textAlign: 'center',
-  },
-  code: {
-    textTransform: 'uppercase',
-  },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
-  },
-});
