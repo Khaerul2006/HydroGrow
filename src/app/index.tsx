@@ -35,6 +35,14 @@ const plants: Plant[] = [
     condition: "Sehat",
     emoji: "🌿",
   },
+
+  {
+    id: 4,
+    name: 'cabai',
+    quantity: 27,
+    condition: 'Sehat',
+    emoji: '🌶️',
+  },
 ];
 
 // CUSTOM FUNCTION
