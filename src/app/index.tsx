@@ -4,11 +4,8 @@ import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
 
-import WeatherCard from "@/components/weathercard";
+import WeatherCard from "@/components/WeatherCard";
 import { useTheme } from "@/context/ThemeContext";
-
-        {/* CUACA (data dari External API) */}
-        <WeatherCard />
 
 // CUSTOM COMPONENT UNTUK CARD TANAMAN
 const PlantCard = ({
@@ -26,7 +23,7 @@ const PlantCard = ({
       style={styles.plantCard}
       onPress={() =>
         router.push({
-          pathname: "/detail" as any,
+          pathname: "/detail",
           params: {
             name: plant.name,
             quantity: String(plant.quantity),
@@ -148,6 +145,9 @@ export default function HomeScreen() {
             <Text style={styles.statLabel}>Perhatian</Text>
           </View>
         </View>
+
+        {/* CUACA (data dari External API) */}
+        <WeatherCard />
 
         {/* DAFTAR TANAMAN */}
         <Text style={styles.sectionTitle}>Tanaman Hidroponik</Text>

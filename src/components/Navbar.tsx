@@ -12,7 +12,6 @@ const menuItems = [
   { label: "🌱  Tanaman", path: "/tanaman" },
   { label: "⚙️  Pengaturan", path: "/pengaturan" },
   { label: "ℹ️  Tentang", path: "/tentang" },
-  { label: " Logout", path: "/"}
 ];
 
 export default function Navbar() {
