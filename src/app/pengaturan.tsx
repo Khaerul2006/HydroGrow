@@ -1,6 +1,6 @@
-import { Switch, Text, View } from "react-native";
-
 import { useTheme } from "@/context/ThemeContext";
+import { router } from "expo-router";
+import { Pressable, Switch, Text, View } from "react-native";
 
 export default function PengaturanScreen() {
   const { styles, isDark, toggleTheme } = useTheme();
@@ -20,6 +20,12 @@ export default function PengaturanScreen() {
             thumbColor="#ffffff"
           />
         </View>
+        <Pressable
+          style={styles.backButton}
+          onPress={() => router.replace("/")}
+        >
+          <Text style={styles.backButtonText}>Kembali</Text>
+        </Pressable>
       </View>
     </View>
   );
