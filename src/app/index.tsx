@@ -4,7 +4,11 @@ import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
 
+import WeatherCard from "@/components/weathercard";
 import { useTheme } from "@/context/ThemeContext";
+
+        {/* CUACA (data dari External API) */}
+        <WeatherCard />
 
 // CUSTOM COMPONENT UNTUK CARD TANAMAN
 const PlantCard = ({
@@ -22,7 +26,7 @@ const PlantCard = ({
       style={styles.plantCard}
       onPress={() =>
         router.push({
-          pathname: "/detail",
+          pathname: "/detail" as any,
           params: {
             name: plant.name,
             quantity: String(plant.quantity),

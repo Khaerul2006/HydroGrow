@@ -12,6 +12,7 @@ const menuItems = [
   { label: "🌱  Tanaman", path: "/tanaman" },
   { label: "⚙️  Pengaturan", path: "/pengaturan" },
   { label: "ℹ️  Tentang", path: "/tentang" },
+  { label: " Logout", path: "/"}
 ];
 
 export default function Navbar() {
@@ -58,6 +59,7 @@ export default function Navbar() {
       {/* NAVBAR */}
       <View style={[styles.navbar, { paddingTop: insets.top + 10 }]}>
         <Pressable style={styles.hamburger} onPress={openMenu} hitSlop={8}>
+          <View style={styles.hamburgerLine} />
           <View style={styles.hamburgerLine} />
           <View style={styles.hamburgerLine} />
           <View style={styles.hamburgerLine} />
